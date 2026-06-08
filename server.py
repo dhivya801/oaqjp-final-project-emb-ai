@@ -16,24 +16,24 @@ def analyze_emotion():
     Request body should contain: {"text": "your text here"}
     Returns: JSON response with emotion scores and dominant emotion
     """
-    
+
     try:
         # Get the text from the request body
         data = request.get_json()
-        
+
         # Check if text is provided
         if not data or 'text' not in data:
             return jsonify({'error': 'No text provided'}), 400
-        
+
         text_to_analyze = data.get('text', '')
-        
+
         # Call the emotion detector function
         result = emotion_detector(text_to_analyze)
-        
+
         # Handle blank input error
         if result['status_code'] == 400:
             return jsonify({'error': 'Please provide non-empty text'}), 400
-        
+
         # Return the formatted response
         return jsonify({
             'anger': result['anger'],
@@ -43,8 +43,8 @@ def analyze_emotion():
             'sadness': result['sadness'],
             'dominant_emotion': result['dominant_emotion']
         }), 200
-    
-    except Exception as e:
+
+    except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
 
