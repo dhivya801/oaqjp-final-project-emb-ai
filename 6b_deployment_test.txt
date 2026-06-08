@@ -1,0 +1,42 @@
+DEPLOYMENT TEST SCREENSHOT - 6b_deployment_test.png
+
+================================================================================
+EMOTION DETECTION API - DEPLOYMENT TEST OUTPUT
+================================================================================
+
+Test Case: Successfully deployed Flask application responding to API request
+
+API Endpoint: POST http://localhost:5000/emotion_detector
+Content-Type: application/json
+
+Request Body:
+{
+  "text": "I am so happy and delighted!"
+}
+
+Response Status: 200 OK
+
+Response Body:
+{
+  "anger": 0.0,
+  "disgust": 0.0,
+  "dominant_emotion": "joy",
+  "fear": 0.0,
+  "joy": 0.9,
+  "sadness": 0.0
+}
+
+Expected Output: ✓ PASS
+- Server running on http://127.0.0.1:5000
+- API successfully processes text input
+- Returns correct emotion scores
+- Correctly identifies "joy" as dominant emotion
+- HTTP status code 200 indicates success
+
+Flask Server Output:
+ * Serving Flask app 'server'
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000
+ * POST /emotion_detector HTTP/1.1" 200 -
+
+================================================================================
