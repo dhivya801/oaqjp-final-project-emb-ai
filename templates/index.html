@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">Emotion AI</span>
+                <h1>Detect feelings in every sentence</h1>
+                <p>Paste your text and the Emotion Detector will analyze anger, disgust, fear, joy, and sadness instantly.</p>
+                <div class="hero-badge">Powered by Watson-style analysis</div>
+            </div>
+            <div class="hero-visual">
+                <div class="mood-card">
+                    <div class="mood-title">Your mood snapshot</div>
+                    <div class="mood-pills">
+                        <span>Anger</span>
+                        <span>Joy</span>
+                        <span>Fear</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-grid">
+            <section class="panel panel--accent">
+                <div class="panel-header">
+                    <h2>Analyze text</h2>
+                    <p>Enter a sentence, paragraph, or message to see the emotion breakdown.</p>
+                </div>
+                <textarea id="textInput" placeholder="Type something like 'I am excited about this!'" rows="8"></textarea>
+                <button id="submitButton">Analyze Emotion</button>
+                <div class="feedback" id="errorMessage"></div>
+            </section>
+
+            <section class="panel panel--results">
+                <div class="panel-header">
+                    <h2>Analysis results</h2>
+                    <p>Review the dominant emotion and score distribution.</p>
+                </div>
+                <div class="result-card" id="resultsCard">
+                    <div class="result-summary">
+                        <span class="result-label">Dominant Emotion</span>
+                        <strong id="dominantEmotion">—</strong>
+                    </div>
+                    <div class="score-list" id="emotionScores">
+                        <div class="score-item">
+                            <span>Anger</span>
+                            <span id="angerScore">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Disgust</span>
+                            <span id="disgustScore">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Fear</span>
+                            <span id="fearScore">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Joy</span>
+                            <span id="joyScore">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Sadness</span>
+                            <span id="sadnessScore">0%</span>
+                        </div>
+                    </div>
+                    <div class="score-bars" id="scoreBars"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

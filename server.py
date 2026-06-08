@@ -3,7 +3,7 @@ Flask server for Emotion Detection application
 Provides REST API endpoints for emotion detection
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from EmotionDetection.emotion_detection import emotion_detector
 
 app = Flask(__name__)
@@ -52,6 +52,12 @@ def analyze_emotion():
 def health():
     """Health check endpoint"""
     return jsonify({'status': 'ok'}), 200
+
+
+@app.route('/', methods=['GET'])
+def home():
+    """Serve the emotion detector UI"""
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
