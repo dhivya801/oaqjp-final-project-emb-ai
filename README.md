@@ -1,137 +1,74 @@
-# Emotion Detector
+# Final Project
 
-An emotion detection application using IBM Watson NLP Library that analyzes text and detects emotions including anger, disgust, fear, joy, and sadness.
+## Emotion Detection Application using IBM Watson NLP Library
+
+This is the **Final Project** for the IBM AI Engineering Professional Certificate course. The application uses the Watson NLP library to detect emotions in text, including anger, disgust, fear, joy, and sadness.
 
 ## Features
 
-- **Emotion Detection**: Analyzes text to detect five emotions: anger, disgust, fear, joy, and sadness
-- **REST API**: Flask web server for easy integration with other applications
-- **Error Handling**: Comprehensive error handling for invalid inputs
-- **Unit Tests**: Complete test suite to validate functionality
-- **Static Code Analysis**: Pylint integration for code quality
+- **Emotion Detection**: Analyzes text to detect five emotions using Watson NLP
+- **REST API**: Flask web server with `/emotionDetector` endpoint
+- **Error Handling**: Returns appropriate messages for blank input (status 400)
+- **Unit Tests**: Complete test suite validating all five emotions
+- **Static Code Analysis**: Pylint score of 10.00/10
 
 ## Project Structure
 
 ```
-emotion/
+oaqjp-final-project-emb-ai/
 ├── EmotionDetection/
 │   ├── __init__.py
 │   └── emotion_detection.py
-├── test_emotion_detection.py
+├── templates/
+│   └── index.html
 ├── server.py
+├── test_emotion_detection.py
 └── README.md
 ```
 
 ## Installation
 
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd emotion
-```
-
-2. Install required dependencies:
-```bash
-pip install ibm-watson ibm-cloud-sdk-core flask pylint
+pip install requests flask pylint
 ```
 
 ## Usage
 
-### As a Python Module
-
-```python
-from EmotionDetection.emotion_detection import emotion_detector
-
-result = emotion_detector("I am so happy!")
-print(result)
-```
-
-### As a Flask Web Service
-
-1. Start the server:
+### Start the Flask Server
 ```bash
 python server.py
 ```
 
-2. Make a POST request:
-```bash
-curl -X POST http://localhost:5000/emotion_detector \
-  -H "Content-Type: application/json" \
-  -d '{"text": "I am feeling great today"}'
-```
+### Access the Application
+Open `http://localhost:5000` in your browser.
 
-## API Endpoints
+## API Endpoint
 
-### POST /emotion_detector
+### GET /emotionDetector
 Analyzes emotion in the provided text.
 
 **Request:**
-```json
-{
-  "text": "Your text here"
-}
+```
+GET /emotionDetector?textToAnalyze=I+love+this+product
 ```
 
-**Response (Success - 200):**
-```json
-{
-  "anger": 0.1,
-  "disgust": 0.0,
-  "fear": 0.0,
-  "joy": 0.9,
-  "sadness": 0.0,
-  "dominant_emotion": "joy"
-}
+**Response:**
 ```
-
-**Response (Error - 400):**
-```json
-{
-  "error": "Please provide non-empty text"
-}
+For the given statement, the system response is 'anger': 0.006, 'disgust': 0.002, 'fear': 0.009, 'joy': 0.971 and 'sadness': 0.011. The dominant emotion is joy.
 ```
-
-### GET /health
-Health check endpoint to verify server is running.
 
 ## Testing
 
-Run the unit tests:
 ```bash
-python -m pytest test_emotion_detection.py
-# or
 python -m unittest test_emotion_detection.py
 ```
 
 ## Code Quality
 
-Run static code analysis:
 ```bash
 pylint server.py
-pylint EmotionDetection/emotion_detection.py
 ```
-
-## Watson NLP Integration
-
-This application uses the IBM Watson Natural Language Understanding API to detect emotions in text. The API returns emotion scores for:
-
-- **Anger**: Likelihood of anger
-- **Disgust**: Likelihood of disgust
-- **Fear**: Likelihood of fear
-- **Joy**: Likelihood of joy
-- **Sadness**: Likelihood of sadness
-
-## Error Handling
-
-The application handles:
-- Blank or empty input (returns 400 status code)
-- Missing API credentials (handled gracefully)
-- Invalid API requests (returns appropriate error messages)
 
 ## Author
 
-Emotion Detection Application
-
-## License
-
-This project is open source and available under the MIT License.
+Final Project - Emotion Detection Application
