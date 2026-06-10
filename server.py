@@ -1,64 +1,46 @@
 """
-Flask server for Emotion Detection application
-Provides REST API endpoints for emotion detection
+Flask server for Emotion Detection application.
+This module deploys the emotion detector as a web application using Flask.
 """
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask(__name__)
+app = Flask("Emotion Detector")
 
 
-@app.route('/emotion_detector', methods=['POST'])
-def analyze_emotion():
+@app.route("/emotionDetector")
+def emotion_detect():
     """
-    POST endpoint to analyze emotion in provided text
-    Request body should contain: {"text": "your text here"}
-    Returns: JSON response with emotion scores and dominant emotion
+    Route to analyze emotion in provided text.
+    Receives text via query parameter textToAnalyze.
+    Returns a formatted string response with emotion scores.
     """
+    text_to_analyze = request.args.get('textToAnalyze')
 
-    try:
-        # Get the text from the request body
-        data = request.get_json()
+    response = emotion_detector(text_to_analyze)
 
-        # Check if text is provided
-        if not data or 'text' not in data:
-            return jsonify({'error': 'No text provided'}), 400
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!."
 
-        text_to_analyze = data.get('text', '')
-
-        # Call the emotion detector function
-        result = emotion_detector(text_to_analyze)
-
-        # Handle blank input error
-        if result['status_code'] == 400:
-            return jsonify({'error': 'Please provide non-empty text'}), 400
-
-        # Return the formatted response
-        return jsonify({
-            'anger': result['anger'],
-            'disgust': result['disgust'],
-            'fear': result['fear'],
-            'joy': result['joy'],
-            'sadness': result['sadness'],
-            'dominant_emotion': result['dominant_emotion']
-        }), 200
-
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
+    return (
+        "For the given statement, the system response is "
+        f"'anger': {response['anger']}, "
+        f"'disgust': {response['disgust']}, "
+        f"'fear': {response['fear']}, "
+        f"'joy': {response['joy']} and "
+        f"'sadness': {response['sadness']}. "
+        f"The dominant emotion is <b>{response['dominant_emotion']}</b>."
+    )
 
 
-@app.route('/health', methods=['GET'])
-def health():
-    """Health check endpoint"""
-    return jsonify({'status': 'ok'}), 200
-
-
-@app.route('/', methods=['GET'])
-def home():
-    """Serve the emotion detector UI"""
+@app.route("/")
+def render_index_page():
+    """
+    Route to render the index page.
+    """
     return render_template('index.html')
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
